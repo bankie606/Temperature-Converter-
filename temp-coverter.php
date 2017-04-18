@@ -20,9 +20,8 @@ function convert($degree, $convertFrom, $convertTo) {
 	} else if ($convertFrom == "Celsius" && $convertTo == "Celsius") {
 		$result = $degree;
 	}
-	return round($result);
+	return round($result, 2);
 }
-
 
 ?>
 
