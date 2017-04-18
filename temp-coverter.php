@@ -1,26 +1,28 @@
 <?php
 
+// let the site know its name
 define('THIS_PAGE', basename($_SERVER['PHP_SELF']));
 
+// convert different units of temperature
 function convert($degree, $convertFrom, $convertTo) {
-	if ($convertFrom == 'Fahrenheit' && $convertTo == 'Celsius') {
+	if ($convertFrom == 'Fahrenheit' && $convertTo == 'Celsius') { // F to C
 		$result = ($degree - 32) * (5 / 9);
-	} else if ($convertFrom == "Fahrenheit" && $convertTo == "Kelvin") {
+	} else if ($convertFrom == "Fahrenheit" && $convertTo == "Kelvin") { // F to K
 		$result = ($degree - 32) * (5 / 9) + 273.15;
-	}	else if ($convertFrom == "Fahrenheit" && $convertTo == "Fahrenheit") {
+	}	else if ($convertFrom == "Fahrenheit" && $convertTo == "Fahrenheit") { // F to F
 		$result = $degree;
-	} else if ($convertFrom == 'Celsius' && $convertTo == 'Fahrenheit') {
+	} else if ($convertFrom == 'Celsius' && $convertTo == 'Fahrenheit') { // C to F
 		$result = ($degree * 9 / 5) + 32;
-	} else if ($convertFrom == "Celsius" && $convertTo == "Kelvin") {
+	} else if ($convertFrom == "Celsius" && $convertTo == "Kelvin") { // C to K
 		$result = $degree + 273.15;
-	}	else if ($convertFrom == 'Kelvin' && $convertTo == 'Fahrenheit') {
+	}	else if ($convertFrom == 'Kelvin' && $convertTo == 'Fahrenheit') { // K to F
 		$result = ($degree - 273.15) * 9/5 + 32;
-	} else if ($convertFrom == "Kelvin" && $convertTo == "Celsius") {
+	} else if ($convertFrom == "Kelvin" && $convertTo == "Celsius") { // K to C
 		$result = $degree - 273.15;
-	} else if ($convertFrom == "Celsius" && $convertTo == "Celsius") {
+	} else if ($convertFrom == "Celsius" && $convertTo == "Celsius") { // C to C
 		$result = $degree;
 	}
-	return round($result, 2);
+	return round($result, 2); // round to 2 decimal places
 }
 
 ?>
@@ -41,7 +43,7 @@ function convert($degree, $convertFrom, $convertTo) {
 
 			#container {
 				margin: 0 auto;
-				max-width: 960px;
+				max-width: 1180px;
 				padding: 0 20px;
 			}
 
@@ -90,12 +92,14 @@ function convert($degree, $convertFrom, $convertTo) {
 				</form>
 	
 <?php
+				// show result only when everything is entered
 				if (isset($_POST['convert']) && isset($_POST['convertFrom']) && isset($_POST['convertTo']) && is_numeric($_POST['value'])) {
-					$degree = $_POST['value'];
-					$convertFrom = $_POST['convertFrom'];
-					$convertTo = $_POST['convertTo'];
-					$conversion = convert($degree, $convertFrom, $convertTo);
+					$degree = $_POST['value']; // value entered by user
+					$convertFrom = $_POST['convertFrom']; // convert from
+					$convertTo = $_POST['convertTo']; // convert to
+					$conversion = convert($degree, $convertFrom, $convertTo); // call the function
 					
+					// decide whether to use the word "degree" or not
 					if ($convertFrom == 'Kelvin' && $convertTo != 'Kelvin') {
 						echo "
 						<h2>$degree $convertFrom is $conversion degree $convertTo</h2>
@@ -115,3 +119,6 @@ function convert($degree, $convertFrom, $convertTo) {
 		</div>
 	</body>
 </html>
+<?php
+
+?>
